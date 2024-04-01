@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Student Details</title>
+    </head>
+    <body>
+        <h1>Student Details</h1>
+        <h2>{{ student.name }}</h2>
+        <h3>Courses:</h3>
+        <ul>
+            {% for course in student.courses.all %}
+                <li>{{ course.name }}</li>
+            {% endfor %}
+        </ul>
+        <h3>Register for a new course:</h3>
+        <form method="post">
+            {% csrf_token %}
+            <select name="course">
+                {% for course in available_courses %}
+                    <option value="{{ course.name }}">{{ course.name }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit">Register</button>
+        </form>
+        <a href="{% url 'students' %}">Add Student</a>
+        <a href="{% url 'courses' %}">Add Course</a>
+    </body>
+</html>
